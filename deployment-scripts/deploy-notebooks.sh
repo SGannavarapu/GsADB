@@ -9,7 +9,7 @@ resourceGroup="Demo-ADB"
 workspaceName="gsdemoadb"
 notebookPathUnderWorkspace="/MyProject"
 
-# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
 
 
