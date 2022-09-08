@@ -49,7 +49,7 @@ on:
       SUBSCRIPTION_ID:
         description: 'Azure Subscription Id'
         required: true
-        default: ''
+        default: ${{ secrets.clientId }}
 
 
 
@@ -105,6 +105,8 @@ jobs:
       keyVaultName: 'gsdemokv'
       NotebookDeploymentPath: '/MyProject'
       GitNotebookPath: 'notebooks/MyProject'
+      databricks-dev-ops-tenant-id: '${{ secrets.tenantId }}'
+      databricks-dev-ops-client-id: '${{ secrets.clientId }}'
 
     steps:
     # Show the environment variables for debugging
@@ -139,21 +141,21 @@ jobs:
 #         # set this if you will be using PowerShell
 #         # enable-AzPSSession: true 
 
-    - name: Log in with Azure
-      uses: azure/login@v1
-      with:
-          creds: '{"clientId":"${{ secrets.clientId }}","clientSecret":"${{ secrets.clientSecret }}","subscriptionId":"${{ secrets.subscriptionId }}","tenantId":"${{ secrets.tenantId }}"}'
+#     - name: Log in with Azure
+#       uses: azure/login@v1
+#       with:
+#           creds: '{"clientId":"${{ secrets.clientId }}","clientSecret":"${{ secrets.clientSecret }}","subscriptionId":"${{ secrets.subscriptionId }}","tenantId":"${{ secrets.tenantId }}"}'
 
-    # Download KeyVault Secrets
-    - name: Download KeyVault Secrets
-      uses: Azure/get-keyvault-secrets@v1.0
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-      with:
-        keyvault: 'gsdemokv'
-        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
-      id: databricksSecretAction
+#     # Download KeyVault Secrets
+#     - name: Download KeyVault Secrets
+#       uses: Azure/get-keyvault-secrets@v1.0
+#       env:
+#         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+#       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
+#       with:
+#         keyvault: 'gsdemokv'
+#         secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
+#       id: databricksSecretAction
       
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
@@ -161,5 +163,5 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/MyProject"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{env.databricks-dev-ops-tenant-secret }} ${{env.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }}
  
