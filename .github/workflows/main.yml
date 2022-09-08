@@ -139,6 +139,17 @@ jobs:
 #         # set this if you will be using PowerShell
 #         # enable-AzPSSession: true 
 
+# Download KeyVault Secrets
+    - name: Download KeyVault Secrets
+      uses: Azure/get-keyvault-secrets@v1.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
+      with:
+        keyvault: 'gsdemokv'
+        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
+      id: databricksSecretAction
+      
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
