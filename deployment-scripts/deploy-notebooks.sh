@@ -1,13 +1,34 @@
 #!/bin/bash
 
 # Must be run in the directory with the notebooks (spaces in names in Bash can cause issues)
-tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47"
-client_id="e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
-client_secret="-Gc8Q~au_f3lVzosZMDW9u3zcocbXKcbaV_RZcKw"
-subscription_id="011d72ba-8ffe-4358-a191-e5d110d97a2d"
-resourceGroup="Demo-ADB"
-workspaceName="gsdemoadb"
-notebookPathUnderWorkspace="/MyProject"
+tenant_id=$1
+client_id=$2
+client_secret=$3
+subscription_id=$4
+resourceGroup=$5
+workspaceName=$6
+notebookPathUnderWorkspace=$7
+accessToken=$8
+workspaceUrl=$9
+
+echo "tenant_id : $tenant_id"
+echo "client_id : $client_id"
+echo "client_secret : $client_secret"
+echo "subscription_id : $subscription_id"
+echo "resourceGroup : $resourceGroup"
+echo "workspaceName : $workspaceName"
+echo "notebookPathUnderWorkspace : $notebookPathUnderWorkspace"
+echo "accessToken : $accessToken"
+echo "workspaceUrl : $workspaceUrl"
+
+# tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47"
+# client_id="e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
+# client_secret="-Gc8Q~au_f3lVzosZMDW9u3zcocbXKcbaV_RZcKw"
+# subscription_id="011d72ba-8ffe-4358-a191-e5d110d97a2d"
+# resourceGroup="Demo-ADB"
+# workspaceName="gsdemoadb"
+# notebookPathUnderWorkspace="/MyProject"
+
 tenant_id_1=$1
 echo "tenant_id : $tenant_id_1"
 azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
@@ -50,9 +71,9 @@ find . -type d -name "*" -print0 | while IFS= read -r -d '' dirPath; do
     JSON="{ \"path\" : \"$pathOnDatabricks\" }"
     echo "Creating Path: $JSON"
     
-    echo "curl https://$workspaceUrl/api/2.0/workspace/mkdirs -d $clusterId --data $JSON"
+    echo "curl $workspaceUrl/api/2.0/workspace/mkdirs -d $clusterId --data $JSON"
 
-    curl -X POST https://$workspaceUrl/api/2.0/workspace/mkdirs \
+    curl -X POST $workspaceUrl/api/2.0/workspace/mkdirs \
         -H "Authorization:Bearer $accessToken" \
        --data "$JSON"
 done
@@ -89,7 +110,7 @@ done
 
         echo "curl -F language=$language -F path=$notebookPathUnderWorkspace/$filename -F content=@$file https://$workspaceUrl/api/2.0/workspace/import"
 
-        curl -n https://$workspaceUrl/api/2.0/workspace/import \
+        curl -n $workspaceUrl/api/2.0/workspace/import \
             -H "Authorization:Bearer $accessToken" \
             -F language="$language" \
             -F overwrite=true \
