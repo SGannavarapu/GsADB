@@ -17,18 +17,19 @@ resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/provid
 # Get access tokens for Databricks API
 ######################################################################################
 
-accessToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oauth2/token \
-  -F resource=$azure_databricks_resource_id \
-  -F client_id=$client_id \
-  -F grant_type=client_credentials \
-  -F client_secret=$client_secret | jq .access_token --raw-output) 
+# accessToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oauth2/token \
+#   -F resource=$azure_databricks_resource_id \
+#   -F client_id=$client_id \
+#   -F grant_type=client_credentials \
+#   -F client_secret=$client_secret | jq .access_token --raw-output) 
 
-managementToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oauth2/token \
-  -F resource=https://management.core.windows.net/ \
-  -F client_id=$client_id \
-  -F grant_type=client_credentials \
-  -F client_secret=$client_secret | jq .access_token --raw-output) 
+# managementToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oauth2/token \
+#   -F resource=https://management.core.windows.net/ \
+#   -F client_id=$client_id \
+#   -F grant_type=client_credentials \
+#   -F client_secret=$client_secret | jq .access_token --raw-output) 
 
+accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
 echo "Databricks managementToken: $managementToken"
 echo "Databricks accessToken: $accessToken"
 
@@ -70,10 +71,7 @@ find . -type d -name "*" -print0 | while IFS= read -r -d '' dirPath; do
 
     curl -X POST https://$workspaceUrl/api/2.0/workspace/mkdirs \
         -H "Authorization:Bearer $accessToken" \
-        -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-        -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
-        -H "Content-Type: application/json" \
-        --data "$JSON"
+       --data "$JSON"
 done
 
 ######################################################################################
