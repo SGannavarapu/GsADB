@@ -132,17 +132,17 @@ jobs:
         path: ${{ github.workspace }}/deployment-scripts
         
     # Login to Azure
-    - name: Login via Az module
-      uses: azure/login@v1.1
+#     - name: Login via Az module
+#       uses: azure/login@v1
+#       with:
+#         creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#         # set this if you will be using PowerShell
+#         # enable-AzPSSession: true 
+
+    - name: Log in with Azure
+      uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-#         with:
-#             client-id: "e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
-#             tenant-id: "72f988bf-86f1-41af-91ab-2d7cd011db47"
-#             subscription-id: "011d72ba-8ffe-4358-a191-e5d110d97a2d"
-#             "clientSecret": "-Gc8Q~au_f3lVzosZMDW9u3zcocbXKcbaV_RZcKw"
-        # set this if you will be using PowerShell
-        enable-AzPSSession: true 
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
 
     # Download KeyVault Secrets
     - name: Download KeyVault Secrets
