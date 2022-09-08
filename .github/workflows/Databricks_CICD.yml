@@ -257,26 +257,26 @@ jobs:
 #############################################################
 # Deploy to QA
 #############################################################
-  QA:
-    needs: Dev
-    runs-on: ubuntu-latest
-    environment:
-        name: Staging
-    env:
-      resourceGroupName: 'Demo-ADB'
-      databricksWorkspaceName: 'gsdemoadb'
-      keyVaultName: 'gsdemokv'
-      NotebookDeploymentPath: '/MyProject/QA'
-      GitNotebookPath: 'notebooks/MyProject'
+#   QA:
+#     needs: Dev
+#     runs-on: ubuntu-latest
+#     environment:
+#         name: Staging
+#     env:
+#       resourceGroupName: 'Demo-ADB'
+#       databricksWorkspaceName: 'gsdemoadb'
+#       keyVaultName: 'gsdemokv'
+#       NotebookDeploymentPath: '/MyProject/QA'
+#       GitNotebookPath: 'notebooks/MyProject'
       
-    steps:
-    # Show the environment variables for debugging
-    - name: Display Environment Variable
-      uses: azure/powershell@v1
-      with:
-        inlineScript: |
-          dir env:
-        azPSVersion: '3.1.0'        
+#     steps:
+#     # Show the environment variables for debugging
+#     - name: Display Environment Variable
+#       uses: azure/powershell@v1
+#       with:
+#         inlineScript: |
+#           dir env:
+#         azPSVersion: '3.1.0'        
 
 #     # Download Artifact: ARM-Templates
 #     - name: 'Download Artifact: ARM-Templates' 
@@ -292,12 +292,12 @@ jobs:
 #         name: 'clusters'
 #         path: ${{ github.workspace }}/clusters
 
-    # Download Artifact: Databricks-Notebooks
-    - name: 'Download Artifact: Databricks-Notebooks' 
-      uses: actions/download-artifact@v2
-      with:
-        name: 'notebooks'
-        path: ${{ github.workspace }}/notebooks
+#     # Download Artifact: Databricks-Notebooks
+#     - name: 'Download Artifact: Databricks-Notebooks' 
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: 'notebooks'
+#         path: ${{ github.workspace }}/notebooks
 
 #     # Download Artifact: Databricks-Jobs
 #     - name: 'Download Artifact: Databricks-Jobs' 
