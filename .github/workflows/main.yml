@@ -49,7 +49,7 @@ on:
       SUBSCRIPTION_ID:
         description: 'Azure Subscription Id'
         required: true
-        default: ${{ secrets.clientId }}
+        default: ''
 
 
 
