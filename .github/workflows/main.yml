@@ -133,9 +133,12 @@ jobs:
         
     # Login to Azure
     - name: Login via Az module
-      uses: azure/login@v1
+#       uses: azure/login@v1.1
+#       with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: Azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
         # set this if you will be using PowerShell
         # enable-AzPSSession: true 
 
