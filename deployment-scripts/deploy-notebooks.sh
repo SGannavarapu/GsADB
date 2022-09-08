@@ -38,7 +38,7 @@ managementToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oaut
 #         -H "Authorization: Bearer $managementToken" \
 #         https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName?api-version=2018-04-01 \
 #         | jq .properties.workspaceUrl --raw-output)
-workspaceUrl="https://adb-3185198617161307.7.azuredatabricks.net"
+workspaceUrl="adb-3185198617161307.7.azuredatabricks.net"
 echo "Databricks workspaceUrl: $workspaceUrl"
 
 
