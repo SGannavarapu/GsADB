@@ -33,12 +33,12 @@ managementToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oaut
 ######################################################################################
 # Get Databricks workspace URL (e.g. adb-5946405904802522.2.azuredatabricks.net)
 ######################################################################################
-workspaceUrl=$(curl -X GET \
-        -H "Content-Type: application/json" \
-        -H "Authorization: Bearer $managementToken" \
-        https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName?api-version=2018-04-01 \
-        | jq .properties.workspaceUrl --raw-output)
-
+# workspaceUrl=$(curl -X GET \
+#         -H "Content-Type: application/json" \
+#         -H "Authorization: Bearer $managementToken" \
+#         https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName?api-version=2018-04-01 \
+#         | jq .properties.workspaceUrl --raw-output)
+workspaceUrl="https://adb-3185198617161307.7.azuredatabricks.net"
 echo "Databricks workspaceUrl: $workspaceUrl"
 
 
