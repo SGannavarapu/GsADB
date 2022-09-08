@@ -142,7 +142,7 @@ jobs:
     - name: Log in with Azure
       uses: azure/login@v1
       with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          creds: '{"clientId":"${{ secrets.clientId }}","clientSecret":"${{ secrets.clientSecret }}","subscriptionId":"${{ secrets.subscriptionId }}","tenantId":"${{ secrets.tenantId }}"}'
 
     # Download KeyVault Secrets
     - name: Download KeyVault Secrets
