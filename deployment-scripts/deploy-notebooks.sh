@@ -17,7 +17,8 @@ resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/provid
 # Get access tokens for Databricks API
 ######################################################################################
 
-accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
+# accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
+accessToken=${{ secrets.DATABRICKS_TOKEN }}
 echo "Databricks accessToken: $accessToken"
 
 ######################################################################################
