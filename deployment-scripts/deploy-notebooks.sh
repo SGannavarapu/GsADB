@@ -71,9 +71,9 @@ find . -type d -name "*" -print0 | while IFS= read -r -d '' dirPath; do
     JSON="{ \"path\" : \"$pathOnDatabricks\" }"
     echo "Creating Path: $JSON"
     
-    echo "curl $workspaceUrl/api/2.0/workspace/mkdirs -d $clusterId --data $JSON"
+    echo "curl https://$workspaceUrl/api/2.0/workspace/mkdirs -d $clusterId --data $JSON"
 
-    curl -X POST $workspaceUrl/api/2.0/workspace/mkdirs \
+    curl -X POST https://$workspaceUrl/api/2.0/workspace/mkdirs \
         -H "Authorization:Bearer $accessToken" \
        --data "$JSON"
 done
@@ -110,7 +110,7 @@ done
 
         echo "curl -F language=$language -F path=$notebookPathUnderWorkspace/$filename -F content=@$file https://$workspaceUrl/api/2.0/workspace/import"
 
-        curl -n $workspaceUrl/api/2.0/workspace/import \
+        curl -n https://$workspaceUrl/api/2.0/workspace/import \
             -H "Authorization:Bearer $accessToken" \
             -F language="$language" \
             -F overwrite=true \
