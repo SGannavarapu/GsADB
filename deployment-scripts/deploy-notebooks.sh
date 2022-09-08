@@ -108,8 +108,6 @@ done
 
         curl -n https://$workspaceUrl/api/2.0/workspace/import \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -F language="$language" \
             -F overwrite=true \
             -F path="$notebookPathUnderWorkspace/$filename" \
