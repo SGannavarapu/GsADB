@@ -133,16 +133,13 @@ jobs:
         
     # Login to Azure
     - name: Login via Az module
-#       uses: azure/login@v1.1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: Azure/login@v1
+      uses: azure/login@v1.1
       with:
-        creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         # set this if you will be using PowerShell
         # enable-AzPSSession: true 
 
-# Download KeyVault Secrets
+    # Download KeyVault Secrets
     - name: Download KeyVault Secrets
       uses: Azure/get-keyvault-secrets@v1.0
       env:
