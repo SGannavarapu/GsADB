@@ -131,13 +131,13 @@ jobs:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
         
-#     # Login to Azure
-#     - name: Login via Az module
-#       uses: azure/login@v1.1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#         # set this if you will be using PowerShell
-#         # enable-AzPSSession: true 
+    # Login to Azure
+    - name: Login via Az module
+      uses: azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # set this if you will be using PowerShell
+        # enable-AzPSSession: true 
 
 # Download KeyVault Secrets
     - name: Download KeyVault Secrets
