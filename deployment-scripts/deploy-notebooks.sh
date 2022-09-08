@@ -1,16 +1,17 @@
 #!/bin/bash
 
 # Must be run in the directory with the notebooks (spaces in names in Bash can cause issues)
-tenant_id=$1
-client_id=$2
-client_secret=$3
-subscription_id=$4
-resourceGroup=$5
-workspaceName=$6
-notebookPathUnderWorkspace=$7
+tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47"
+client_id="e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
+client_secret="-Gc8Q~au_f3lVzosZMDW9u3zcocbXKcbaV_RZcKw"
+subscription_id="011d72ba-8ffe-4358-a191-e5d110d97a2d"
+resourceGroup="Demo-ADB"
+workspaceName="gsdemoadb"
+notebookPathUnderWorkspace="/MyProject"
 
-azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
+
 
 ######################################################################################
 # Get access tokens for Databricks API
