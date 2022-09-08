@@ -8,7 +8,8 @@ subscription_id="011d72ba-8ffe-4358-a191-e5d110d97a2d"
 resourceGroup="Demo-ADB"
 workspaceName="gsdemoadb"
 notebookPathUnderWorkspace="/MyProject"
-
+tenant_id_1=$1
+echo "tenant_id : $tenant_id_1"
 azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
 
