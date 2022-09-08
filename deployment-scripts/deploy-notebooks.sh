@@ -29,6 +29,8 @@ managementToken=$(curl -X POST https://login.microsoftonline.com/$tenant_id/oaut
   -F grant_type=client_credentials \
   -F client_secret=$client_secret | jq .access_token --raw-output) 
 
+echo "Databricks managementToken: $managementToken"
+echo "Databricks accessToken: $accessToken"
 
 ######################################################################################
 # Get Databricks workspace URL (e.g. adb-5946405904802522.2.azuredatabricks.net)
