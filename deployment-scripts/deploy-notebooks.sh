@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # Must be run in the directory with the notebooks (spaces in names in Bash can cause issues)
-# tenant_id=$1
-# client_id=$2
-# client_secret=$3
-# subscription_id=$4
-# resourceGroup=$5
-# workspaceName=$6
-# notebookPathUnderWorkspace=$7
+tenant_id=$1
+client_id=$2
+client_secret=$3
+subscription_id=$4
+resourceGroup=$5
+workspaceName=$6
+notebookPathUnderWorkspace=$7
 
-# echo "tenant_id : $tenant_id"
-# echo "client_id : $client_id"
-# echo "client_secret : $client_secret"
-# echo "subscription_id : $subscription_id"
-# echo "resourceGroup : $resourceGroup"
-# echo "workspaceName : $workspaceName"
-# echo "notebookPathUnderWorkspace : $notebookPathUnderWorkspace"
+echo "tenant_id : $tenant_id"
+echo "client_id : $client_id"
+echo "client_secret : $client_secret"
+echo "subscription_id : $subscription_id"
+echo "resourceGroup : $resourceGroup"
+echo "workspaceName : $workspaceName"
+echo "notebookPathUnderWorkspace : $notebookPathUnderWorkspace"
 
 tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47"
 client_id="e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
