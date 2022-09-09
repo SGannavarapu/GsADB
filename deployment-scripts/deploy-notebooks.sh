@@ -43,6 +43,7 @@ echo "Databricks accessToken: $accessToken"
 ######################################################################################
 workspaceUrl=$9
 # workspaceUrl="adb-3185198617161307.7.azuredatabricks.net"
+
 echo "Databricks workspaceUrl: $workspaceUrl"
 
 ######################################################################################
