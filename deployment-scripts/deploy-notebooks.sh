@@ -33,14 +33,16 @@ resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/provid
 # Get access tokens for Databricks API
 ######################################################################################
 
-accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
+accessToken=$8
+# accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
 
 echo "Databricks accessToken: $accessToken"
 
 ######################################################################################
 # Get Databricks workspace URL (e.g. adb-5946405904802522.2.azuredatabricks.net)
 ######################################################################################
-workspaceUrl="adb-3185198617161307.7.azuredatabricks.net"
+workspaceUrl=$9
+# workspaceUrl="adb-3185198617161307.7.azuredatabricks.net"
 echo "Databricks workspaceUrl: $workspaceUrl"
 
 ######################################################################################
