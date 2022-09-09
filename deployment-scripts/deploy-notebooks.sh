@@ -8,6 +8,8 @@ subscription_id=$4
 resourceGroup=$5
 workspaceName=$6
 notebookPathUnderWorkspace=$7
+accessToken=$8
+workspaceUrl=$9
 
 echo "tenant_id : $tenant_id"
 echo "client_id : $client_id"
@@ -17,34 +19,8 @@ echo "resourceGroup : $resourceGroup"
 echo "workspaceName : $workspaceName"
 echo "notebookPathUnderWorkspace : $notebookPathUnderWorkspace"
 
-# tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47"
-# client_id="e5fc5f4d-f803-44c4-8f2a-92c9a920d226"
-# client_secret="-Gc8Q~au_f3lVzosZMDW9u3zcocbXKcbaV_RZcKw"
-# subscription_id="011d72ba-8ffe-4358-a191-e5d110d97a2d"
-# resourceGroup="Demo-ADB"
-# workspaceName="gsdemoadb"
-# notebookPathUnderWorkspace="/MyProject"
-
 azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
-
-
-######################################################################################
-# Get access tokens for Databricks API
-######################################################################################
-
-accessToken=$8
-# accessToken="dapi81b00e319c187e4d0a4a973e13d43cab-2"
-
-echo "Databricks accessToken: $accessToken"
-
-######################################################################################
-# Get Databricks workspace URL (e.g. adb-5946405904802522.2.azuredatabricks.net)
-######################################################################################
-workspaceUrl=$9
-# workspaceUrl="adb-3185198617161307.7.azuredatabricks.net"
-
-echo "Databricks workspaceUrl: $workspaceUrl"
 
 ######################################################################################
 # Recusively Create Paths 
