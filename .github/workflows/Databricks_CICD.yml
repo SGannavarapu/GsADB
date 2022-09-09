@@ -103,12 +103,12 @@ jobs:
         name: 'notebooks'
         path: '${{ github.workspace }}/notebooks'
 
-#     # Publish Artifact: Databricks-Jobs
-#     - name: 'Publish Artifact: Databricks-Jobs' 
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: 'jobs'
-#         path: '${{ github.workspace }}/jobs'
+    # Publish Artifact: Databricks-Jobs
+    - name: 'Publish Artifact: Databricks-Jobs' 
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'jobs'
+        path: '${{ github.workspace }}/jobs'
 
 #     # Publish Artifact: Databricks-Init-Scripts
 #     - name: 'Publish Artifact: Databricks-Init-Scripts' 
@@ -168,12 +168,12 @@ jobs:
         name: 'notebooks'
         path: ${{ github.workspace }}/notebooks
 
-#     # Download Artifact: Databricks-Jobs
-#     - name: 'Download Artifact: Databricks-Jobs' 
-#       uses: actions/download-artifact@v2
-#       with:
-#         name: 'jobs'
-#         path: ${{ github.workspace }}/jobs
+    # Download Artifact: Databricks-Jobs
+    - name: 'Download Artifact: Databricks-Jobs' 
+      uses: actions/download-artifact@v2
+      with:
+        name: 'jobs'
+        path: ${{ github.workspace }}/jobs
 
 #     # Download Artifact: Databricks-Init-Scripts
 #     - name: 'Download Artifact: Databricks-Init-Scripts' 
@@ -205,6 +205,7 @@ jobs:
 #         inlineScript: |
 #           az group create --location 'EastUS2' --name 'Databricks-MyProject-MG-Dev'
 #           az deployment group create --resource-group 'Databricks-MyProject-MG-Dev' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='Databricks-MyProject-MG-Dev'
+
 #     # Deploy Azure KeyVault
 #     - name: Deploy ARM Template (KeyVault)
 #       uses: azure/CLI@v1
@@ -213,6 +214,7 @@ jobs:
 #         inlineScript: |
 #           az group create --location "${{ github.event.inputs.LOCATION }}" --name "${{ env.resourceGroupName }}"
 #           az deployment group create --resource-group ${{ env.resourceGroupName }} --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.keyvault.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.keyvault.json --parameters keyVaultName="${{ env.keyVaultName }}"
+
 #     # Download KeyVault Secrets
 #     - name: Download KeyVault Secrets
 #       uses: Azure/get-keyvault-secrets@v1.0
@@ -231,6 +233,7 @@ jobs:
 #         cd "$GITHUB_WORKSPACE/init-scripts"
 #         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh
 #         $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }}
+
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
@@ -247,13 +250,13 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }}
         
-#     # Deploy Databricks Jobs
-#     - name: Deploy Databricks Jobs
-#       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-#       run: |
-#         cd "$GITHUB_WORKSPACE/jobs"
-#        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
-#        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }}
+    # Deploy Databricks Jobs
+    - name: Deploy Databricks Jobs
+      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
+      run: |
+        cd "$GITHUB_WORKSPACE/jobs"
+       chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
+       $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }}
 #############################################################
 # Deploy to QA
 #############################################################
