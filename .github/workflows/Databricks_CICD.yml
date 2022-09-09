@@ -190,13 +190,13 @@ jobs:
         path: ${{ github.workspace }}/deployment-scripts
         
 #     # Login to Azure
-#     - name: Login via Az module
-#       uses: azure/login@v1.1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#         # set this if you will be using PowerShell
-#         # enable-AzPSSession: true 
-
+    - name: Login via Az module
+      uses: azure/actions/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # set this if you will be using PowerShell
+        # enable-AzPSSession: true 
+      
 #     # Deploy Databricks Workspace
 #     - name: Deploy ARM Template (Databricks)
 #       uses: azure/CLI@v1
@@ -215,16 +215,16 @@ jobs:
 #           az group create --location "${{ github.event.inputs.LOCATION }}" --name "${{ env.resourceGroupName }}"
 #           az deployment group create --resource-group ${{ env.resourceGroupName }} --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.keyvault.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.keyvault.json --parameters keyVaultName="${{ env.keyVaultName }}"
 
-#     # Download KeyVault Secrets
-#     - name: Download KeyVault Secrets
-#       uses: Azure/get-keyvault-secrets@v1.0
-#       env:
-#         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-#       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-#       with:
-#         keyvault: 'KeyVault-MyProject7-Dev'
-#         secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret'
-#       id: databricksSecretAction
+    # Download KeyVault Secrets
+    - name: Download KeyVault Secrets
+      uses: Azure/get-keyvault-secrets@v1.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
+      with:
+        keyvault: 'gsdemokv'
+        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret'
+      id: databricksSecretAction
 
 #     # Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
 #     - name:  Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
