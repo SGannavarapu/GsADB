@@ -1,6 +1,4 @@
 {
-  
-  "settings": {
     "name": "Test-CICD-Job",
     "email_notifications": {
       "no_alert_for_skipped_runs": false
@@ -57,4 +55,3 @@
     ],
     "format": "MULTI_TASK"
   }
-}
