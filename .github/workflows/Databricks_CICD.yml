@@ -356,7 +356,7 @@ jobs:
       with:
         keyvault: 'gsdemokv'
         secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
-        id: databricksSecretAction
+      id: databricksSecretAction
 
 #     # Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
 #     - name:  Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
