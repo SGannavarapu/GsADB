@@ -518,4 +518,4 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/jobs"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
