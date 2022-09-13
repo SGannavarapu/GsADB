@@ -264,7 +264,7 @@ jobs:
     needs: Dev
     runs-on: ubuntu-latest
     environment:
-        name: Staging
+        name: QA
     env:
       resourceGroupName: 'Demo-ADB'
       databricksWorkspaceName: 'gsdemoadb'
@@ -484,7 +484,7 @@ jobs:
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       with:
         keyvault: ${{ env.keyVaultName }}
-        secrets: 'databricks-CICD-subscription-id,databricks-CICD-tenant-id,databricks-CICD-client-id,databricks-CICD-client-secret,databricks-CICD-Token,databricks-CICD--url'
+        secrets: 'databricks-CICD-subscription-id,databricks-CICD-tenant-id,databricks-CICD-client-id,databricks-CICD-client-secret,databricks-CICD-Token,databricks-CICD-url'
       id: databricksSecretAction
 
 #     # Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
