@@ -5,7 +5,7 @@
     },
     "timeout_seconds": 0,
     "schedule": {
-       "quartz_cron_expression": "14 10 13 * * ?",
+       "quartz_cron_expression": "14 20 16 * * ?",
       "timezone_id": "Asia/Kolkata",
       "pause_status": "UNPAUSED"
     },
