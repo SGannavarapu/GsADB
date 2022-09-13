@@ -494,13 +494,13 @@ jobs:
 #         cd "$GITHUB_WORKSPACE/init-scripts"
 #         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh
 #         $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
-    # Deploy Databricks Clusters
-    - name: Deploy Databricks Clusters
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-      run: |
-        cd "$GITHUB_WORKSPACE/clusters"
-        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
+#     # Deploy Databricks Clusters
+#     - name: Deploy Databricks Clusters
+#       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
+#       run: |
+#         cd "$GITHUB_WORKSPACE/clusters"
+#         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
+#         $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
