@@ -12,7 +12,7 @@ on:
     inputs:
       # This is the path of your notebooks in Git.  Currently, this is not recursively deploying notebooks
       GIT_NOTEBOOK_PATH:
-        description: 'Notebooks Relative Path in Git'
+        description: 'Notebooks Relative Path in Git '
         required: true
         default: 'notebooks/MyProject'
 
@@ -133,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       resourceGroupName: 'Demo-ADB'
-      databricksWorkspaceName: 'gsdemoadb'
+      databricksWorkspaceName: 'ABD_Demo_Dev'
       keyVaultName: 'gsdemokv'
       NotebookDeploymentPath: '/MyProject'
       GitNotebookPath: 'notebooks/MyProject'
