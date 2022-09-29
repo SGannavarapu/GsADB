@@ -147,6 +147,7 @@ jobs:
           dir env:
         azPSVersion: '3.1.0'        
 
+# This code is commented as infra is not part of this code
 #     # Download Artifact: ARM-Templates
 #     - name: 'Download Artifact: ARM-Templates' 
 #       uses: actions/download-artifact@v2
