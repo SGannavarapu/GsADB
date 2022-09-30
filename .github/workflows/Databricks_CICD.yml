@@ -110,6 +110,13 @@ jobs:
         name: 'jobs'
         path: '${{ github.workspace }}/jobs'
 
+    # Publish Artifact: Databricks-Pools
+    - name: 'Publish Artifact: Databricks-Pools' 
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'jobs'
+        path: '${{ github.workspace }}/pools'        
+
 #     # Publish Artifact: Databricks-Init-Scripts
 #     - name: 'Publish Artifact: Databricks-Init-Scripts' 
 #       uses: actions/upload-artifact@v2
@@ -175,6 +182,12 @@ jobs:
       with:
         name: 'jobs'
         path: ${{ github.workspace }}/jobs
+
+    - name: 'Download Artifact: Databricks-Pools' 
+      uses: actions/download-artifact@v2
+      with:
+        name: 'jobs'
+        path: ${{ github.workspace }}/pools
 
 #     # Download Artifact: Databricks-Init-Scripts
 #     - name: 'Download Artifact: Databricks-Init-Scripts' 
