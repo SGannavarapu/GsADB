@@ -24,7 +24,7 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of pool so we know if we need to create or edit
-pooList=$(curl GET https://$workspaceUrl/api/2.0/instance-pools/list \
+poolList=$(curl -X GET https://$workspaceUrl/api/2.0/instance-pools/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
@@ -38,7 +38,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
 
     poolName=$(cat $filename | jq -r .instance_pool_name)
-    poolId=$(echo $pooList | jq -r ".instance_pools[] | select(.instance_pool_name == \"$poolName\") | .instance_pool_id")
+    poolId=$(echo $poolList | jq -r ".instance_pools[] | select(.instance_pool_name == \"$poolName\") | .instance_pool_id")
 
     echo "poolName: $poolName"
     echo "poolId: $poolId"
