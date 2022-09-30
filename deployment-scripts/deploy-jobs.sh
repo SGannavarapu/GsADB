@@ -26,6 +26,7 @@ resourceGroup=$5
 workspaceName=$6
 accessToken=$7
 workspaceUrl=$8
+echo "workspaceUrl : $workspaceUrl"
 
 azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
