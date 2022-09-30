@@ -31,6 +31,7 @@ pooList=$(curl GET https://$workspaceUrl/api/2.0/instance-pools/list \
 
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
+
     echo "Processing file: $file"
     filename=${file//$replaceSource/$replaceDest}
     echo "New filename: $filename"
