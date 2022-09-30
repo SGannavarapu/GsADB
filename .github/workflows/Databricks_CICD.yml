@@ -276,7 +276,6 @@ jobs:
     steps:
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      if: ${{ github.ref == 'refs/heads/release' }}
       uses: azure/powershell@v1
       with:
         inlineScript: |
@@ -357,7 +356,7 @@ jobs:
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       with:
         keyvault: ${{ env.keyVaultName }}
-        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
+        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token-QA,databricks-url-QA'
       id: databricksSecretAction
 
 #     # Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
@@ -373,21 +372,21 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/clusters"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/jobs"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
 # #############################################################
 # # Deploy to Prod
 # #############################################################
@@ -400,8 +399,8 @@ jobs:
       resourceGroupName: 'Demo-ADB-Prod'
       databricksWorkspaceName: 'gsdemoadbProd'
       keyVaultName: 'gsdemokvProd'
-      NotebookDeploymentPath: '/MyProject'
-      GitNotebookPath: 'notebooks/MyProject'
+      NotebookDeploymentPath: '/'
+      GitNotebookPath: 'notebooks/'  
 
     steps:
     # Show the environment variables for debugging
@@ -510,7 +509,7 @@ jobs:
     - name: Deploy Databricks Notebooks
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
-        cd "$GITHUB_WORKSPACE/notebooks/MyProject"
+        cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
         
