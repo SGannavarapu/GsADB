@@ -499,7 +499,6 @@ jobs:
 
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/clusters"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
@@ -507,7 +506,6 @@ jobs:
         
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
@@ -515,7 +513,6 @@ jobs:
         
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/jobs"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
