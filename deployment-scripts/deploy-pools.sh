@@ -24,14 +24,14 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of pool so we know if we need to create or edit
-pooList=$(curl GET https://adb-6744296713551828.8.azuredatabricks.net/api/2.0/instance-pools/list \
+pooList=$(curl GET https://$workspaceUrl/api/2.0/instance-pools/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
 
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
-    echo "workspaceUrl : $workspaceUrl"
+    
     echo "Processing file: $file"
     filename=${file//$replaceSource/$replaceDest}
     echo "New filename: $filename"
@@ -78,11 +78,3 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
     echo ""  
 
 done
-
-
-######################################################################################
-# Sleep will the above calls complete
-######################################################################################
-read -p "sleeping" -t 15
-
-
