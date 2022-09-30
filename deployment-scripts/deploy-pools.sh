@@ -62,7 +62,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        # need to inject some JSON into the file
        poolDef=$(cat $filename)
 
-       newJSON=$(echo $poolDef | jq ". += {pool_id: \"$poolId\"}")
+       newJSON=$(echo $poolDef | jq ". += {instance_pool_id: \"$poolId\"}")
        echo "New Pool Def"
        echo $newJSON
        echo ""
