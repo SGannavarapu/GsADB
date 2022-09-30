@@ -24,7 +24,7 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl GET https://$workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -X GET https://$workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
@@ -90,7 +90,7 @@ read -p "sleeping" -t 15
 ######################################################################################
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl GET https://$workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -X GET https://$workspaceUrl/api/2.0/clusters/list \
                -H "Authorization:Bearer $accessToken" \
                -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
                -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
