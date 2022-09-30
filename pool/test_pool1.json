@@ -1,0 +1,11 @@
+{
+    "instance_pool_name": "test-pool1",
+    "node_type_id": "Standard_D3_v2",
+    "min_idle_instances": 2,
+    "custom_tags": [
+      {
+        "key": "my-key",
+        "value": "my-value"
+      }
+    ]
+  }
