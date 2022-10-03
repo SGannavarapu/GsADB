@@ -220,7 +220,7 @@ jobs:
 # Deploy to QA
 #############################################################
   QA:
-    needs: Build
+    needs: Dev
     runs-on: ubuntu-latest
     environment:
         name: QA
@@ -315,7 +315,7 @@ jobs:
 # # Deploy to Prod
 # #############################################################
   Prod:
-    needs: Build
+    needs: QA
     runs-on: ubuntu-latest
     environment:
         name: Prod
