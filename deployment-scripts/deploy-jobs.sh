@@ -18,18 +18,18 @@
 #    - Call "Reset"
 
 # Must be run in the directory with the clusters (spaces in names in Bash can cause issues)
-tenant_id=$1
-client_id=$2
-client_secret=$3
-subscription_id=$4
-resourceGroup=$5
-workspaceName=$6
-accessToken=$7
-workspaceUrl=$8
+# tenant_id=$1
+# client_id=$2
+# client_secret=$3
+# subscription_id=$4
+# resourceGroup=$5
+# workspaceName=$6
+accessToken=$1
+workspaceUrl=$2
 
 
-azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
-resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
+# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+# resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
 
 ######################################################################################
 # Deploy jobs (Add or Update existing)
@@ -39,13 +39,13 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of clusters so we know the clusters ids
-clusterList=$(curl -X GET https://$workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
 
 # Get a list of clusters so we know the clusters ids
-jobList=$(curl -X GET https://$workspaceUrl/api/2.0/jobs/list \
+jobList=$(curl -X GET $workspaceUrl/api/2.0/jobs/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
@@ -108,9 +108,9 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
     if [ -z "$jobId" ];
     then
        echo "The Job $jobName does not exists in Databricks workspace, Creating..."
-       echo "curl https://$workspaceUrl/api/2.0/jobs/create --data {json}"
+       echo "curl $workspaceUrl/api/2.0/jobs/create --data {json}"
    
-       curl -X POST https://$workspaceUrl/api/2.0/jobs/create \
+       curl -X POST $workspaceUrl/api/2.0/jobs/create \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
@@ -124,9 +124,9 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        json="{ \"job_id\" : $jobId, \"new_settings\": $json }"
        echo "Job JSON (with job id) $json"
 
-       echo "curl https://$workspaceUrl/api/2.0/jobs/reset--data {json}"
+       echo "curl $workspaceUrl/api/2.0/jobs/reset--data {json}"
 
-       curl -X POST https://$workspaceUrl/api/2.0/jobs/reset \
+       curl -X POST $workspaceUrl/api/2.0/jobs/reset \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \

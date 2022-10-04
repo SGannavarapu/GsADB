@@ -4,17 +4,17 @@
 # You might want to Pin your clusters
 
 # Must be run in the directory with the clusters (spaces in names in Bash can cause issues)
-tenant_id=$1
-client_id=$2
-client_secret=$3
-subscription_id=$4
-resourceGroup=$5
-workspaceName=$6
-accessToken=$7
-workspaceUrl=$8
+# tenant_id=$1
+# client_id=$2
+# client_secret=$3
+# subscription_id=$4
+# resourceGroup=$5
+# workspaceName=$6
+accessToken=$1
+workspaceUrl=$2
 
-azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
-resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
+# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+# resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
 
 ######################################################################################
 # Deploy clusters (Add or Update existing)
@@ -24,7 +24,7 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl -X GET https://$workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
@@ -46,9 +46,9 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
     if [ -z "$clusterId" ];
     then
        echo "Cluster $clusterName does not exists in Databricks workspace, Creating..."
-       echo "curl https://$workspaceUrl/api/2.0/clusters/create -d $filename"
+       echo "curl $workspaceUrl/api/2.0/clusters/create -d $filename"
 
-       curl -X POST https://$workspaceUrl/api/2.0/clusters/create \
+       curl -X POST $workspaceUrl/api/2.0/clusters/create \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
@@ -56,7 +56,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
     else
        echo "Cluster $clusterName exists in Databricks workspace, Updating..."
-       echo "curl https://$workspaceUrl/api/2.0/clusters/edit -d $filename"
+       echo "curl $workspaceUrl/api/2.0/clusters/edit -d $filename"
 
        # need to inject some JSON into the file
        clusterDef=$(cat $filename)
@@ -66,7 +66,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo $newJSON
        echo ""
 
-       curl -X POST https://$workspaceUrl/api/2.0/clusters/edit \
+       curl -X POST $workspaceUrl/api/2.0/clusters/edit \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
@@ -90,7 +90,7 @@ read -p "sleeping" -t 15
 ######################################################################################
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl -X GET https://$workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
                -H "Authorization:Bearer $accessToken" \
                -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
                -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
@@ -114,13 +114,13 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
     else
        echo "Cluster $clusterName with Cluster ID $clusterId, Stopping..."
-       echo "curl https://$workspaceUrl/api/2.0/clusters/delete -d $clusterId"
+       echo "curl $workspaceUrl/api/2.0/clusters/delete -d $clusterId"
 
        newJSON="{ \"cluster_id\" : \"$clusterId\" }"
        echo "Cluster to stop: $newJSON"
    
        # NOTE: permanent-delete is used to "delete" the cluster.  Delete below means "stop" the clustter
-       curl -X POST https://$workspaceUrl/api/2.0/clusters/delete \
+       curl -X POST $workspaceUrl/api/2.0/clusters/delete \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
