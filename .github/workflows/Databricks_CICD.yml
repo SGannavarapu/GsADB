@@ -26,34 +26,34 @@ on:
         default: '/MyProject'
 
      # This resource group for the Databricks workspace and KeyVault
-      RESOURCE_GROUP:
-        description: 'Resource Group Name'
-        required: true
-        default: 'Demo-ADB'
+      # RESOURCE_GROUP:
+      #   description: 'Resource Group Name'
+      #   required: true
+      #   default: 'Demo-ADB'
 
-      # The Azure region to which to deploy your resources
-      LOCATION:
-        description: 'Azure Region'
-        required: true
-        default: 'EastUS2'
+      # # The Azure region to which to deploy your resources
+      # LOCATION:
+      #   description: 'Azure Region'
+      #   required: true
+      #   default: 'EastUS2'
 
-      # This is the name of your Azure Databricks resource
-      WORKSPACE_NAME:
-        description: 'Databricks workspace name'
-        required: true
-        default: 'gsdemoadb'
+      # # This is the name of your Azure Databricks resource
+      # WORKSPACE_NAME:
+      #   description: 'Databricks workspace name'
+      #   required: true
+      #   default: 'gsdemoadb'
 
-      # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
-      KEY_VAULT_NAME:
-        description: 'KeyVault name'
-        required: true
-        default: 'gsdemokv'
+      # # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
+      # KEY_VAULT_NAME:
+      #   description: 'KeyVault name'
+      #   required: true
+      #   default: 'gsdemokv'
 
-      # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
-      SUBSCRIPTION_ID:
-        description: 'Azure Subscription Id'
-        required: true
-        default: ''
+      # # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
+      # SUBSCRIPTION_ID:
+      #   description: 'Azure Subscription Id'
+      #   required: true
+      #   default: ''
 
 jobs:
   #############################################################
@@ -124,7 +124,7 @@ jobs:
       databricksWorkspaceName: 'ABD_Demo_Dev'
       # keyVaultName: 'gsdemokv'
       NotebookDeploymentPath: '/'
-      GitNotebookPath: 'notebooks/'
+      # GitNotebookPath: 'notebooks/'
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_PAT }}
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
 
@@ -202,7 +202,7 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.NotebookDeploymentPath }} ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
         
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
