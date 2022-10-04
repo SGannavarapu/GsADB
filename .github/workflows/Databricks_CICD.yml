@@ -5,7 +5,7 @@ name: Databricks-CI-CD
 on:
 # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    # branches: [ main ]
+    branches: [ main ]
 #  pull_request:
 #    branches: [ main ]
   workflow_dispatch:
@@ -125,6 +125,8 @@ jobs:
       keyVaultName: 'gsdemokv'
       NotebookDeploymentPath: '/'
       GitNotebookPath: 'notebooks/'
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_PAT }}
+      DATABRICKS_HOST: "https://adb-4243880010092193.13.azuredatabricks.net"
 
     steps:
     # Show the environment variables for debugging
@@ -200,7 +202,7 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ env.DATABRICKS_TOKEN }} ${{ steps.databricksSecretAction.outputs.databricks-url }}
         
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
@@ -289,6 +291,7 @@ jobs:
 
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
+    
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/clusters"
