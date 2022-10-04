@@ -24,37 +24,6 @@ on:
         description: 'Notebooks Deployment Path to Databricks'
         required: true
         default: '/MyProject'
-
-     # This resource group for the Databricks workspace and KeyVault
-      # RESOURCE_GROUP:
-      #   description: 'Resource Group Name'
-      #   required: true
-      #   default: 'Demo-ADB'
-
-      # # The Azure region to which to deploy your resources
-      # LOCATION:
-      #   description: 'Azure Region'
-      #   required: true
-      #   default: 'EastUS2'
-
-      # # This is the name of your Azure Databricks resource
-      # WORKSPACE_NAME:
-      #   description: 'Databricks workspace name'
-      #   required: true
-      #   default: 'gsdemoadb'
-
-      # # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
-      # KEY_VAULT_NAME:
-      #   description: 'KeyVault name'
-      #   required: true
-      #   default: 'gsdemokv'
-
-      # # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
-      # SUBSCRIPTION_ID:
-      #   description: 'Azure Subscription Id'
-      #   required: true
-      #   default: ''
-
 jobs:
   #############################################################
   # Builds the code
@@ -120,13 +89,9 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     env:
-      # resourceGroupName: 'Demo-ADB'
-      databricksWorkspaceName: 'ABD_Demo_Dev'
-      # keyVaultName: 'gsdemokv'
-      NotebookDeploymentPath: '/'
-      # GitNotebookPath: 'notebooks/'
-      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_PAT }}
-      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      NOTEBOOK_DEPLOYMENT_PATH: '/'
+      DATABRICKS_TOKEN: ${{ secrets.DEV_DATABRICKS_PAT }}
+      DATABRICKS_HOST: ${{ secrets.DEV_DATABRICKS_HOST }}
 
     steps:
     # Show the environment variables for debugging
@@ -172,24 +137,6 @@ jobs:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
         
-# #     # Login to Azure
-#     - name: Login via Az module
-#       uses: azure/login@v1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#         # set this if you will be using PowerShell
-#         # enable-AzPSSession: true 
-      
-#     # Download KeyVault Secrets
-#     - name: Download KeyVault Secrets
-#       uses: Azure/get-keyvault-secrets@v1.0
-#       env:
-#         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-#       with:
-#         keyvault: ${{ env.keyVaultName }}
-#         secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token,databricks-url'
-#       id: databricksSecretAction
-
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
       run: |
@@ -202,7 +149,7 @@ jobs:
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.NotebookDeploymentPath }} ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.NOTEBOOK_DEPLOYMENT_PATH }} ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
         
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
@@ -227,11 +174,9 @@ jobs:
     environment:
         name: QA
     env:
-      resourceGroupName: 'Demo-ADB'
-      databricksWorkspaceName: 'gsdemoadb'
-      keyVaultName: 'gsdemokv'
-      NotebookDeploymentPath: '/'
-      GitNotebookPath: 'notebooks/'
+      NOTEBOOK_DEPLOYMENT_PATH: '/'
+      DATABRICKS_TOKEN: ${{ secrets.QA_DATABRICKS_PAT }}
+      DATABRICKS_HOST: ${{ secrets.QA_DATABRICKS_HOST }}
       
     steps:
     # Show the environment variables for debugging
@@ -270,49 +215,33 @@ jobs:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
         
-    # Login to Azure
-    - name: Login via Az module
-      uses: azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        # set this if you will be using PowerShell
-        # enable-AzPSSession: true 
-
-    # Download KeyVault Secrets
-    - name: Download KeyVault Secrets
-      uses: Azure/get-keyvault-secrets@v1.0
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-      with:
-        keyvault: ${{ env.keyVaultName }}
-        secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret,databricks-Token-QA,databricks-url-QA'
-      id: databricksSecretAction
-
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
-    
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/clusters"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
-
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.NOTEBOOK_DEPLOYMENT_PATH }} ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+        
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       run: |
         cd "$GITHUB_WORKSPACE/jobs"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-dev-ops-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-Token-QA }} ${{ steps.databricksSecretAction.outputs.databricks-url-QA }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
+    # Deploy Databricks Pools
+    - name: Deploy Databricks Pools
+      run: |
+        cd "$GITHUB_WORKSPACE/pools"
+        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh  ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
 # #############################################################
 # # Deploy to Prod
@@ -323,11 +252,9 @@ jobs:
     environment:
         name: Prod
     env:
-      resourceGroupName: 'Demo-ADB-Prod'
-      databricksWorkspaceName: 'gsdemoadbProd'
-      keyVaultName: 'gsdemokvProd'
-      NotebookDeploymentPath: '/'
-      GitNotebookPath: 'notebooks/'  
+      NOTEBOOK_DEPLOYMENT_PATH: '/'
+      DATABRICKS_TOKEN: ${{ secrets.PROD_DATABRICKS_PAT }}
+      DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
 
     steps:
     # Show the environment variables for debugging
@@ -366,40 +293,30 @@ jobs:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
         
-    # Login to Azure
-    - name: Login via Az module
-      uses: azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
-
-    # Download KeyVault Secrets
-    - name: Download KeyVault Secrets
-      uses: Azure/get-keyvault-secrets@v1.0
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      #if: ${{ github.event.inputs.MODE == 'Databricks' }}
-      with:
-        keyvault: ${{ env.keyVaultName }}
-        secrets: 'databricks-CICD-subscription-id,databricks-CICD-tenant-id,databricks-CICD-client-id,databricks-CICD-client-secret,databricks-CICD-Token,databricks-CICD-url'
-      id: databricksSecretAction
-
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
       run: |
         cd "$GITHUB_WORKSPACE/clusters"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
-        
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
       run: |
         cd "$GITHUB_WORKSPACE/notebooks/"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ env.NotebookDeploymentPath }} ${{ steps.databricksSecretAction.outputs.databricks-Token }} ${{ steps.databricksSecretAction.outputs.databricks-url }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-notebooks.sh ${{ env.NOTEBOOK_DEPLOYMENT_PATH }} ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
         
     # Deploy Databricks Jobs
     - name: Deploy Databricks Jobs
       run: |
         cd "$GITHUB_WORKSPACE/jobs"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ steps.databricksSecretAction.outputs.databricks-CICD-tenant-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-id }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-client-secret }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-subscription-id }} ${{ env.resourceGroupName }} ${{ env.databricksWorkspaceName }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-Token }} ${{ steps.databricksSecretAction.outputs.databricks-CICD-url }}
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
+    # Deploy Databricks Pools
+    - name: Deploy Databricks Pools
+      run: |
+        cd "$GITHUB_WORKSPACE/pools"
+        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh  ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
