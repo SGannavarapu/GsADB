@@ -29,7 +29,6 @@ workspaceUrl=$2
 
 
 # azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
-# resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
 
 ######################################################################################
 # Deploy jobs (Add or Update existing)
@@ -41,13 +40,11 @@ replaceDest=""
 # Get a list of clusters so we know the clusters ids
 clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
 
 # Get a list of clusters so we know the clusters ids
 jobList=$(curl -X GET $workspaceUrl/api/2.0/jobs/list \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
 
 # Algorithm
@@ -112,8 +109,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
    
        curl -X POST $workspaceUrl/api/2.0/jobs/create \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
             --data "$json"
 
@@ -128,8 +123,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
        curl -X POST $workspaceUrl/api/2.0/jobs/reset \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
             --data "$json"
 

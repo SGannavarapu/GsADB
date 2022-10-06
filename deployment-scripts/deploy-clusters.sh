@@ -13,9 +13,6 @@
 accessToken=$1
 workspaceUrl=$2
 
-# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
-# resourceId="/subscriptions/$subscription_id/resourceGroups/$resourceGroup/providers/Microsoft.Databricks/workspaces/$workspaceName"
-
 ######################################################################################
 # Deploy clusters (Add or Update existing)
 ######################################################################################
@@ -26,7 +23,6 @@ replaceDest=""
 # Get a list of clusters so we know if we need to create or edit
 clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json")
 
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
@@ -50,7 +46,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
        curl -X POST $workspaceUrl/api/2.0/clusters/create \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
             -d @"$filename" 
 
@@ -69,7 +64,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        curl -X POST $workspaceUrl/api/2.0/clusters/edit \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
 
@@ -93,7 +87,6 @@ read -p "sleeping" -t 15
 clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
                -H "Authorization:Bearer $accessToken" \
                -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-               -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
                -H "Content-Type: application/json")
 
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
@@ -123,7 +116,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        curl -X POST $workspaceUrl/api/2.0/clusters/delete \
             -H "Authorization:Bearer $accessToken" \
             -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
-            -H "X-Databricks-Azure-Workspace-Resource-Id: $resourceId" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
     fi     
