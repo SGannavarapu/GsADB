@@ -89,7 +89,7 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     env:
-      NOTEBOOK_DEPLOYMENT_PATH: ''
+      NOTEBOOK_DEPLOYMENT_PATH: '/'
       DATABRICKS_TOKEN: ${{ secrets.DEV_DATABRICKS_PAT }}
       DATABRICKS_HOST: ${{ secrets.DEV_DATABRICKS_HOST }}
 
