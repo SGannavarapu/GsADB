@@ -4,12 +4,6 @@
 # You might want to Pin your clusters
 
 # Must be run in the directory with the clusters (spaces in names in Bash can cause issues)
-# tenant_id=$1
-# client_id=$2
-# client_secret=$3
-# subscription_id=$4
-# resourceGroup=$5
-# workspaceName=$6
 accessToken=$1
 workspaceUrl=$2
 
@@ -63,7 +57,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
        curl -X POST $workspaceUrl/api/2.0/clusters/edit \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
 
@@ -86,7 +79,6 @@ read -p "sleeping" -t 15
 # Get a list of clusters so we know if we need to create or edit
 clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
                -H "Authorization:Bearer $accessToken" \
-               -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
                -H "Content-Type: application/json")
 
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
@@ -115,7 +107,6 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        # NOTE: permanent-delete is used to "delete" the cluster.  Delete below means "stop" the clustter
        curl -X POST $workspaceUrl/api/2.0/clusters/delete \
             -H "Authorization:Bearer $accessToken" \
-            -H "X-Databricks-Azure-SP-Management-Token: $managementToken" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
     fi     

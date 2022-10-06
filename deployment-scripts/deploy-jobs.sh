@@ -38,19 +38,6 @@ jobList=$(curl -X GET $workspaceUrl/api/2.0/jobs/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 
-# Algorithm
-# 1. Get the list of Jobs and Clusters (we need this for cluster ids)
-# 2. Process the first jobs.json
-# 3. Search the list of jobs based upon the job name
-# 4. If the jobs does not exists
-#    - If there the attribute "existing_cluster_id" exists in the JSON, replace the value by looking up the Cluster Id and call "Create"
-#    - If there is not attribute "existing_cluster_id" the just call "Create"
-# 5. If the job exists
-#    - If there the attribute "existing_cluster_id" exists in the JSON, replace the value by looking up the Cluster Id
-#    - Take the entire JSON (in the file) and place it under a new attribute named "new_settings"
-#    - Inject the attribute "job_id" and set the value
-#    - Call "Reset"
-
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
     echo "Processing file: $file"
