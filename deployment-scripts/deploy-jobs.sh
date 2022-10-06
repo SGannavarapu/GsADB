@@ -18,17 +18,8 @@
 #    - Call "Reset"
 
 # Must be run in the directory with the clusters (spaces in names in Bash can cause issues)
-# tenant_id=$1
-# client_id=$2
-# client_secret=$3
-# subscription_id=$4
-# resourceGroup=$5
-# workspaceName=$6
 accessToken=$1
 workspaceUrl=$2
-
-
-# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 
 ######################################################################################
 # Deploy jobs (Add or Update existing)

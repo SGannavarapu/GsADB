@@ -1,27 +1,13 @@
 #!/bin/bash
 
 # Must be run in the directory with the notebooks (spaces in names in Bash can cause issues)
-# tenant_id=$1
-# client_id=$2
-# client_secret=$3
-# subscription_id=$4
-# resourceGroup=$5
-# workspaceName=$6
 notebookPathUnderWorkspace=$1
 accessToken=$2
 workspaceUrl=$3
 
-# echo "tenant_id : $tenant_id"
-# echo "client_id : $client_id"
-# echo "client_secret : $client_secret"
-# echo "subscription_id : $subscription_id"
-# echo "resourceGroup : $resourceGroup"
-# echo "workspaceName : $workspaceName"
 echo "notebookPathUnderWorkspace : $notebookPathUnderWorkspace"
 echo "accessToken : $accessToken"
 echo "workspaceUrl : $workspaceUrl"
-
-# azure_databricks_resource_id="2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 
 ######################################################################################
 # Recusively Create Paths 
