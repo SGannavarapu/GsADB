@@ -19,6 +19,7 @@ clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 
+echo clusterList
 find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
     echo "Processing file: $file"
