@@ -90,8 +90,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NOTEBOOK_DEPLOYMENT_PATH: '/'
-      DATABRICKS_TOKEN: ${{ secrets.DEV_DATABRICKS_PAT }}
-      DATABRICKS_HOST: ${{ secrets.DEV_DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
 
     steps:
     # Show the environment variables for debugging
@@ -175,8 +175,8 @@ jobs:
         name: QA
     env:
       NOTEBOOK_DEPLOYMENT_PATH: '/'
-      DATABRICKS_TOKEN: ${{ secrets.QA_DATABRICKS_PAT }}
-      DATABRICKS_HOST: ${{ secrets.QA_DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       
     steps:
     # Show the environment variables for debugging
@@ -254,8 +254,8 @@ jobs:
         name: Prod
     env:
       NOTEBOOK_DEPLOYMENT_PATH: '/'
-      DATABRICKS_TOKEN: ${{ secrets.PROD_DATABRICKS_PAT }}
-      DATABRICKS_HOST: ${{ secrets.PROD_DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
 
     steps:
     # Show the environment variables for debugging
