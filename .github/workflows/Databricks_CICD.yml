@@ -86,6 +86,7 @@ jobs:
 # Deploy to Dev
 #############################################################
   Dev:
+    environment: Dev
     needs: Build
     runs-on: ubuntu-latest
     env:
@@ -171,8 +172,7 @@ jobs:
   QA:
     needs: Dev
     runs-on: ubuntu-latest
-    environment:
-        name: QA
+    environment: QA
     env:
       NOTEBOOK_DEPLOYMENT_PATH: '/'
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
@@ -250,8 +250,7 @@ jobs:
   Prod:
     needs: QA
     runs-on: ubuntu-latest
-    environment:
-        name: Prod
+    environment: Prod
     env:
       NOTEBOOK_DEPLOYMENT_PATH: '/'
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
