@@ -15,7 +15,7 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -vvv GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 
@@ -39,7 +39,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo "Cluster $clusterName does not exists in Databricks workspace, Creating..."
        echo "curl $workspaceUrl/api/2.0/clusters/create -d $filename"
 
-       curl -X POST $workspaceUrl/api/2.0/clusters/create \
+       curl -vvv POST $workspaceUrl/api/2.0/clusters/create \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json" \
             -d @"$filename" 
@@ -56,7 +56,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo $newJSON
        echo ""
 
-       curl -X POST $workspaceUrl/api/2.0/clusters/edit \
+       curl -vvv POST $workspaceUrl/api/2.0/clusters/edit \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
@@ -78,7 +78,7 @@ read -p "sleeping" -t 15
 ######################################################################################
 
 # Get a list of clusters so we know if we need to create or edit
-clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -vvv GET $workspaceUrl/api/2.0/clusters/list \
                -H "Authorization:Bearer $accessToken" \
                -H "Content-Type: application/json")
 
@@ -106,7 +106,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo "Cluster to stop: $newJSON"
    
        # NOTE: permanent-delete is used to "delete" the cluster.  Delete below means "stop" the clustter
-       curl -X POST $workspaceUrl/api/2.0/clusters/delete \
+       curl -vvv POST $workspaceUrl/api/2.0/clusters/delete \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json" \
             --data "$newJSON"
