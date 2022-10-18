@@ -38,7 +38,7 @@ jobs:
 
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1
+      uses: azure/powershell@v2
       with:
         inlineScript: |
           dir env:
@@ -94,7 +94,7 @@ jobs:
     steps:
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1
+      uses: azure/powershell@v2
       with:
         inlineScript: |
           dir env:
@@ -102,35 +102,35 @@ jobs:
 
     # Download Artifact: Databricks-Clusters
     - name: 'Download Artifact: Databricks-Clusters' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'clusters'
         path: ${{ github.workspace }}/clusters
 
     # Download Artifact: Databricks-Notebooks
     - name: 'Download Artifact: Databricks-Notebooks' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'notebooks'
         path: ${{ github.workspace }}/notebooks
 
     # Download Artifact: Databricks-Jobs
     - name: 'Download Artifact: Databricks-Jobs' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'jobs'
         path: ${{ github.workspace }}/jobs
 
     # Download Artifact: Databricks-Pools
     - name: 'Download Artifact: Databricks-Pools' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'pools'
         path: ${{ github.workspace }}/pools
 
     # Download Artifact: Deployment Scripts
     - name: 'Download Artifact: Deployment Scripts' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
@@ -179,7 +179,7 @@ jobs:
     steps:
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1
+      uses: azure/powershell@v2
       with:
         inlineScript: |
           dir env:
@@ -187,28 +187,28 @@ jobs:
 
     # Download Artifact: Databricks-Clusters
     - name: 'Download Artifact: Databricks-Clusters' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'clusters'
         path: ${{ github.workspace }}/clusters
 
     # Download Artifact: Databricks-Notebooks
     - name: 'Download Artifact: Databricks-Notebooks' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'notebooks'
         path: ${{ github.workspace }}/notebooks
 
     # Download Artifact: Databricks-Jobs
     - name: 'Download Artifact: Databricks-Jobs' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'jobs'
         path: ${{ github.workspace }}/jobs
 
     # Download Artifact: Deployment Scripts
     - name: 'Download Artifact: Deployment Scripts' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
@@ -257,7 +257,7 @@ jobs:
     steps:
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1
+      uses: azure/powershell@v2
       with:
         inlineScript: |
           dir env:
@@ -265,28 +265,28 @@ jobs:
 
     # Download Artifact: Databricks-Clusters
     - name: 'Download Artifact: Databricks-Clusters' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'clusters'
         path: ${{ github.workspace }}/clusters
 
     # Download Artifact: Databricks-Notebooks
     - name: 'Download Artifact: Databricks-Notebooks' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'notebooks'
         path: ${{ github.workspace }}/notebooks
 
     # Download Artifact: Databricks-Jobs
     - name: 'Download Artifact: Databricks-Jobs' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'jobs'
         path: ${{ github.workspace }}/jobs
 
     # Download Artifact: Deployment Scripts
     - name: 'Download Artifact: Deployment Scripts' 
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
