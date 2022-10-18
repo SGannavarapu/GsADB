@@ -38,7 +38,7 @@ jobs:
 
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1
+      uses: azure/powershell@v1.1
       with:
         inlineScript: |
           dir env:
