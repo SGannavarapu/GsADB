@@ -159,12 +159,13 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-jobs.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
-    # Deploy Databricks Pools
-    - name: Deploy Databricks Pools
-      run: |
-        cd "$GITHUB_WORKSPACE/pools"
-        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh
-        $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh  ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+    # Enable the below code for testing
+    # # Deploy Databricks Pools
+    # - name: Deploy Databricks Pools
+    #   run: |
+    #     cd "$GITHUB_WORKSPACE/pools"
+    #     chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh
+    #     $GITHUB_WORKSPACE/deployment-scripts/deploy-pools.sh  ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
 #############################################################
 # Deploy to QA
