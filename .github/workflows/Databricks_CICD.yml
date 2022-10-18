@@ -38,11 +38,11 @@ jobs:
 
     # Show the environment variables for debugging
     - name: Display Environment Variable
-      uses: azure/powershell@v1.1
+      uses: azure/powershell@v1
       with:
         inlineScript: |
           dir env:
-        azPSVersion: '3.1.0'
+        azPSVersion: '3.1.1'
 
     # Publish Artifact: Databricks-Clusters
     - name: 'Publish Artifact: Databricks-Clusters' 
