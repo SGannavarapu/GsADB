@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# TO DO
-# You might want to Pin your Pools
-
 # Must be run in the directory with the pools (spaces in names in Bash can cause issues)
 accessToken=$1
 workspaceUrl=$2
@@ -49,7 +46,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo "Pool $poolName exists in Databricks workspace, Updating..."
        echo "curl $workspaceUrl/api/2.0/instance-pools/edit -d $filename"
 
-       # need to inject some JSON into the file
+       # need to inject some JSON into the file for updating existing job
        poolDef=$(cat $filename)
 
        newJSON=$(echo $poolDef | jq ". += {instance_pool_id: \"$poolId\"}")

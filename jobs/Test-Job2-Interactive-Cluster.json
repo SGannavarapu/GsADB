@@ -1,5 +1,5 @@
 {
-    "name": "Test-DevOps-Job-Interactive-Cluster",
+    "name": "Test-Job2-Interactive-Cluster",
     "existing_cluster_id": "Small",
     "email_notifications": {},
     "timeout_seconds": 0,

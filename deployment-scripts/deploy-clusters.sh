@@ -48,7 +48,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
        echo "Cluster $clusterName exists in Databricks workspace, Updating..."
        echo "curl $workspaceUrl/api/2.0/clusters/edit -d $filename"
 
-       # need to inject some JSON into the file
+       # need to inject some JSON into the file for updating existing cluster
        clusterDef=$(cat $filename)
 
        newJSON=$(echo $clusterDef | jq ". += {cluster_id: \"$clusterId\"}")

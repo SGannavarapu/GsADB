@@ -1,5 +1,5 @@
 {
-    "name": "Test-CICD-Job",
+    "name": "Test_Job1_JobCluster",
     "email_notifications": {
       "no_alert_for_skipped_runs": false
     },

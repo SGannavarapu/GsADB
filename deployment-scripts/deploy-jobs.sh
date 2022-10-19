@@ -4,9 +4,9 @@
 # The JSON for a Job that runs on an Existing Cluster MUST USE the Cluster Name for the Cluster Id!!!
 # This script will look up the cluster id based upon the cluster name!
 
-# Algorithm
+# Steps
 # 1. Get the list of Jobs and Clusters (we need this for cluster ids)
-# 2. Process the first jobs.json
+# 2. Process the first jobs json
 # 3. Search the list of jobs based upon the job name
 # 4. If the jobs does not exists
 #    - If there the attribute "existing_cluster_id" exists in the JSON, replace the value by looking up the Cluster Id and call "Create"
@@ -33,7 +33,7 @@ clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 
-# Get a list of clusters so we know the clusters ids
+# Get a list of jobs so we know the jobs ids
 jobList=$(curl -X GET $workspaceUrl/api/2.0/jobs/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
