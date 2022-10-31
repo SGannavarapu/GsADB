@@ -29,12 +29,12 @@ replaceSource="./"
 replaceDest=""
 
 # Get a list of clusters so we know the clusters ids
-clusterList=$(curl -X GET $workspaceUrl/api/2.0/clusters/list \
+clusterList=$(curl -vvv GET $workspaceUrl/api/2.0/clusters/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 
 # Get a list of jobs so we know the jobs ids
-jobList=$(curl -X GET $workspaceUrl/api/2.0/jobs/list \
+jobList=$(curl -vvv GET $workspaceUrl/api/2.0/jobs/list \
             -H "Authorization:Bearer $accessToken" \
             -H "Content-Type: application/json")
 

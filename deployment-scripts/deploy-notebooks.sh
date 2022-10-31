@@ -33,7 +33,7 @@ find . -type d -name "*" -print0 | while IFS= read -r -d '' dirPath; do
     
     echo "curl $workspaceUrl/api/2.0/workspace/mkdirs -d $clusterId --data $JSON"
 
-    curl -X POST $workspaceUrl/api/2.0/workspace/mkdirs \
+    curl -vvv POST $workspaceUrl/api/2.0/workspace/mkdirs \
         -H "Authorization:Bearer $accessToken" \
        --data "$JSON"
 done
