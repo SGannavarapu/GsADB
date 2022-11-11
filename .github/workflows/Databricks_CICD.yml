@@ -157,7 +157,7 @@ jobs:
       run: |
           BRANCH=${GITHUB_REF#refs/heads/}
           databricks fs cp --overwrite -r $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
-          echo "Use jar file - dbfs:/FileStore/jars/test.jar"
+          echo "Use jar file - dbfs:/FileStore/jars/"
       env:
           DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
           DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
