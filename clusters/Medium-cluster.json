@@ -24,7 +24,7 @@
     "init_scripts": [
         {
             "dbfs": {
-                "destination": "dbfs:/FileStore/jars/test.jar"
+                "destination": "dbfs:/FileStore/jars/ordersystem.jar"
             }
         }
     ],
