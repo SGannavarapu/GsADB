@@ -49,7 +49,15 @@
           "autoscale": {
             "min_workers": 1,
             "max_workers": 8
+          },
+          "libraries": [
+            {
+                "jar": "dbfs:/FileStore/jars/crmsystem.jar"
+            },
+            {
+              "jar": "dbfs:/FileStore/jars/ordersystem.jar"
           }
+        ]
         }
       }
     ],
