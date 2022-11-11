@@ -156,7 +156,7 @@ jobs:
     - name: Upload jar to Databricks
       run: |
           BRANCH=${GITHUB_REF#refs/heads/}
-          databricks fs cp --overwrite $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
+          databricks fs cp --overwrite -r $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
           echo "Use jar file - dbfs:/FileStore/jars/test.jar"
       env:
           DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
