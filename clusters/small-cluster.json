@@ -21,6 +21,7 @@
             {
               "destination": "dbfs:/FileStore/jars/init.sh"
             }
+        }
     ] 
  
 }
