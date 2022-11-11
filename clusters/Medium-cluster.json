@@ -21,8 +21,15 @@
     "autotermination_minutes": 20,
     "enable_elastic_disk": true,
     "cluster_source": "UI",
-    "init_scripts": [],
+    "init_scripts": [
+        {
+            "dbfs": {
+                "destination": "dbfs:/FileStore/jars/test.jar"
+            }
+        }
+    ],
     "data_security_mode": "NONE",
     "runtime_engine": "STANDARD",
     "cluster_id": "0930-065026-51uaymze"
+
 }
