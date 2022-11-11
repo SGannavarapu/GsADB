@@ -18,8 +18,13 @@
     "init_scripts": [
         {
             "dbfs": {
-                "destination": "dbfs:/FileStore/jars/ordersystem.jar"
+                "destination": "dbfs:/FileStore/jars/"
             }
         }
-    ]
+    ],
+    "libraries": [
+     {
+         "jar": "dbfs:/FileStore/jars/ordersystem.jar"
+     }
+ ]
 }
