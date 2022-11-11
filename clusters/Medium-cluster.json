@@ -21,11 +21,5 @@
     "autotermination_minutes": 20,
     "enable_elastic_disk": true,
     "cluster_source": "GIT",
-    "init_scripts": [],
-    "libraries": [
-        {
-            "jar": "dbfs:/FileStore/jars/ordersystem.jar"
-        }
-    ]
-
+    "init_scripts": []
 }
