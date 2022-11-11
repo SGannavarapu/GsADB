@@ -20,7 +20,7 @@
     "spark_env_vars": {},
     "autotermination_minutes": 20,
     "enable_elastic_disk": true,
-    "cluster_source": "UI",
+    "cluster_source": "GIT",
     "init_scripts": [],
     "libraries": [
         {
