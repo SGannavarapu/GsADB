@@ -26,9 +26,6 @@
         {
             "jar": "dbfs:/FileStore/jars/ordersystem.jar"
         }
-    ],
-    "data_security_mode": "NONE",
-    "runtime_engine": "STANDARD",
-    "cluster_id": "0930-065026-51uaymze"
+    ]
 
 }
