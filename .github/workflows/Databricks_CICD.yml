@@ -146,8 +146,8 @@ jobs:
     - name: 'Download Artifact: Databricks-Jar' 
       uses: actions/download-artifact@v3
       with:
-        name: 'jar'
-        path: ${{ github.workspace }}/jar   
+        name: 'jars'
+        path: ${{ github.workspace }}/jars   
         
     - name: Upload jar to Databricks
       run: |
