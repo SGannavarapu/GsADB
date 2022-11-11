@@ -149,6 +149,10 @@ jobs:
         name: 'jars'
         path: ${{ github.workspace }}/jars   
         
+    - name: install databricks cli
+      run: |
+          pip install databricks-cli
+
     - name: Upload jar to Databricks
       run: |
           BRANCH=${GITHUB_REF#refs/heads/}
