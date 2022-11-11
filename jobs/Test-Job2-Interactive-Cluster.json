@@ -7,5 +7,13 @@
         "notebook_path": "/MyProject/Test.py",
         "revision_timestamp": 0
     },
-    "max_concurrent_runs": 1
+    "max_concurrent_runs": 1,
+    "libraries": [
+        {
+            "jar": "dbfs:/FileStore/jars/crmsystem.jar"
+        },
+        {
+          "jar": "dbfs:/FileStore/jars/ordersystem.jar"
+      }
+    ]
 }

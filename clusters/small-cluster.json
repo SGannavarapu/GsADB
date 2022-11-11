@@ -15,13 +15,6 @@
     "autotermination_minutes": 30,
     "enable_elastic_disk": true,
     "cluster_source": "UI",
-    "init_scripts": [
-        {
-            "dbfs": 
-            {
-              "destination": "dbfs:/FileStore/jars/init.sh"
-            }
-        }
-    ] 
+    "init_scripts": [] 
  
 }
