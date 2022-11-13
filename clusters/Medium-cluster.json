@@ -21,5 +21,11 @@
     "autotermination_minutes": 20,
     "enable_elastic_disk": true,
     "cluster_source": "GIT",
-    "init_scripts": []
+    "init_scripts": [
+        {
+            "dbfs": {
+              "destination": "dbfs:/FileStore/init-scripts/init.sh"
+            }
+          } 
+    ]
 }

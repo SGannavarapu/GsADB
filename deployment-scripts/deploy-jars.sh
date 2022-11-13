@@ -3,12 +3,12 @@
 accessToken=$1
 workspaceUrl=$2
 
-initScriptsPath="dbfs:/FileStore/init-scripts"
+jarFilePath="dbfs:/FileStore/jars"
 
 ######################################################################################
 # Create directory for Init Scripts
 ######################################################################################
-JSON="{ \"path\" : \"$initScriptsPath\" }"
+JSON="{ \"path\" : \"$jarFilePath\" }"
 
 echo "curl $workspaceUrl/api/2.0/dbfs/mkdirs -d $JSON"
 
@@ -45,7 +45,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
     curl -n $workspaceUrl/api/2.0/dbfs/put \
         -H "Authorization:Bearer $accessToken" \
         -F overwrite=true \
-        -F path="$initScriptsPath/$filename" \
+        -F path="$jarFilePath/$filename" \
         -F content=@"$filename"       
 
     echo ""
@@ -55,7 +55,7 @@ done
 ######################################################################################
 # List Init Scripts 
 ######################################################################################
-JSON="{ \"path\" : \"$initScriptsPath\" }"
+JSON="{ \"path\" : \"$jarFilePath\" }"
 
 echo "curl $workspaceUrl/api/2.0/dbfs/list -d $JSON"
 

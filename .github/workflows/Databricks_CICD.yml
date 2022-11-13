@@ -25,7 +25,6 @@ on:
 jobs:
   #############################################################
   # Builds the code
-  # Currently this is not building and JAR files, but you would do that here
   # This is packaging up the files from Git to the Artifacts files
   #############################################################
   Build:
@@ -36,13 +35,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Show the environment variables for debugging
-    - name: Display Environment Variable
-      uses: azure/powershell@v1
-      with:
-        inlineScript: |
-          dir env:
-        azPSVersion: '3.1.0'
+    # # Show the environment variables for debugging
+    # - name: Display Environment Variable
+    #   uses: azure/powershell@v1
+    #   with:
+    #     inlineScript: |
+    #       dir env:
+    #     azPSVersion: '3.1.0'
 
     # Publish Artifact: Databricks-Clusters
     - name: 'Publish Artifact: Databricks-Clusters' 
@@ -65,12 +64,12 @@ jobs:
         name: 'jobs'
         path: '${{ github.workspace }}/jobs'
 
-    # Publish Artifact: Databricks-Pools
-    - name: 'Publish Artifact: Databricks-Pools' 
-      uses: actions/upload-artifact@v3
-      with:
-        name: 'pools'
-        path: '${{ github.workspace }}/pools'   
+    # # Publish Artifact: Databricks-Pools
+    # - name: 'Publish Artifact: Databricks-Pools' 
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: 'pools'
+    #     path: '${{ github.workspace }}/pools'   
 
     # Publish Artifact: Databricks-Jars
     - name: 'Publish Artifact: Databricks-Jars' 
@@ -107,12 +106,12 @@ jobs:
 
     steps:
     # Show the environment variables for debugging
-    - name: Display Environment Variable
-      uses: azure/powershell@v1
-      with:
-        inlineScript: |
-          dir env:
-        azPSVersion: '3.1.0'        
+    # - name: Display Environment Variable
+    #   uses: azure/powershell@v1
+    #   with:
+    #     inlineScript: |
+    #       dir env:
+    #     azPSVersion: '3.1.0'        
 
     # Download Artifact: Databricks-Clusters
     - name: 'Download Artifact: Databricks-Clusters' 
@@ -141,7 +140,7 @@ jobs:
       with:
         name: 'init-scripts'
         path: ${{ github.workspace }}/init-scripts
-
+    
     # Download Artifact: Databricks-Pools
     - name: 'Download Artifact: Databricks-Pools' 
       uses: actions/download-artifact@v3
@@ -163,25 +162,32 @@ jobs:
         name: 'jars'
         path: ${{ github.workspace }}/jars   
         
-    - name: install databricks cli
-      run: |
-          pip install databricks-cli
+    # - name: install databricks cli
+    #   run: |
+    #       pip install databricks-cli
 
-    - name: Upload jar to Databricks
-      run: |
-          BRANCH=${GITHUB_REF#refs/heads/}
-          databricks fs cp --overwrite -r $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
-          echo "Use jar file - dbfs:/FileStore/jars/"
-      env:
-          DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
-          DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
+    # - name: Upload jar to Databricks
+    #   run: |
+    #       BRANCH=${GITHUB_REF#refs/heads/}
+    #       databricks fs cp --overwrite -r $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
+    #       echo "Use jar file - dbfs:/FileStore/jars/"
+    #   env:
+    #       DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
+    #       DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
 
-   # Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
+   # Deploy your Databricks Init Scripts to dbfs:/FileStore/init-scripts folder on DBFS
     - name:  Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
       run: |
         cd "$GITHUB_WORKSPACE/init-scripts"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
+# Deploy your Databricks Jar to dbfs:/FileStore/jars folder on DBFS
+    - name:  Deploy your Databricks Jar Files to dbfs:/FileStore/jars folder on DBFS
+      run: |
+        cd "$GITHUB_WORKSPACE/jars"
+        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jars.sh
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jars.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
