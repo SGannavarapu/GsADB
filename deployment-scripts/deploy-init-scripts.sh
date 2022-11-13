@@ -3,7 +3,8 @@
 accessToken=$1
 workspaceUrl=$2
 
-initScriptsPath="dbfs:/init-scripts"
+initScriptsPath="dbfs:/FileStore/init-scripts"
+
 
 ######################################################################################
 # Create directory for Init Scripts
