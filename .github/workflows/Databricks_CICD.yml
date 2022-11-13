@@ -141,6 +141,13 @@ jobs:
         name: 'init-scripts'
         path: ${{ github.workspace }}/init-scripts
     
+    # Download Artifact: jar
+    - name: 'Download Artifact: Databricks-Jar' 
+      uses: actions/download-artifact@v3
+      with:
+        name: 'jars'
+        path: ${{ github.workspace }}/jars   
+
     # Download Artifact: Databricks-Pools
     - name: 'Download Artifact: Databricks-Pools' 
       uses: actions/download-artifact@v3
@@ -154,35 +161,15 @@ jobs:
       with:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
-
-     # Download Artifact: jar
-    - name: 'Download Artifact: Databricks-Jar' 
-      uses: actions/download-artifact@v3
-      with:
-        name: 'jars'
-        path: ${{ github.workspace }}/jars   
         
-    # - name: install databricks cli
-    #   run: |
-    #       pip install databricks-cli
-
-    # - name: Upload jar to Databricks
-    #   run: |
-    #       BRANCH=${GITHUB_REF#refs/heads/}
-    #       databricks fs cp --overwrite -r $GITHUB_WORKSPACE/jars dbfs:/FileStore/jars/
-    #       echo "Use jar file - dbfs:/FileStore/jars/"
-    #   env:
-    #       DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
-    #       DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
-
-   # Deploy your Databricks Init Scripts to dbfs:/FileStore/init-scripts folder on DBFS
+    # Deploy your Databricks Init Scripts to dbfs:/FileStore/init-scripts folder on DBFS
     - name:  Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
       run: |
         cd "$GITHUB_WORKSPACE/init-scripts"
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
-# Deploy your Databricks Jar to dbfs:/FileStore/jars folder on DBFS
+    # Deploy your Databricks Jar to dbfs:/FileStore/jars folder on DBFS
     - name:  Deploy your Databricks Jar Files to dbfs:/FileStore/jars folder on DBFS
       run: |
         cd "$GITHUB_WORKSPACE/jars"
@@ -266,7 +253,36 @@ jobs:
       with:
         name: 'deployment-scripts'
         path: ${{ github.workspace }}/deployment-scripts
-        
+
+    # Download Artifact: Databricks-Init-Scripts
+    - name: 'Download Artifact: Databricks-Init-Scripts' 
+      uses: actions/download-artifact@v3
+      with:
+        name: 'init-scripts'
+        path: ${{ github.workspace }}/init-scripts
+    
+    # Download Artifact: jar
+    - name: 'Download Artifact: Databricks-Jar' 
+      uses: actions/download-artifact@v3
+      with:
+        name: 'jars'
+        path: ${{ github.workspace }}/jars   
+            
+    # Deploy your Databricks Init Scripts to dbfs:/FileStore/init-scripts folder on DBFS
+    - name:  Deploy your Databricks Init Scripts to dbfa:/init-scripts folder on DBFS
+      run: |
+        cd "$GITHUB_WORKSPACE/init-scripts"
+        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-init-scripts.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
+    # Deploy your Databricks Jar to dbfs:/FileStore/jars folder on DBFS
+    - name:  Deploy your Databricks Jar Files to dbfs:/FileStore/jars folder on DBFS
+      run: |
+        cd "$GITHUB_WORKSPACE/jars"
+        chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-jars.sh
+        $GITHUB_WORKSPACE/deployment-scripts/deploy-jars.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
+
+
     # Deploy Databricks Clusters
     - name: Deploy Databricks Clusters
       run: |
@@ -352,6 +368,20 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh
         $GITHUB_WORKSPACE/deployment-scripts/deploy-clusters.sh ${{ env.DATABRICKS_TOKEN }} ${{ env.DATABRICKS_HOST }}
 
+     # Download Artifact: Databricks-Init-Scripts
+    - name: 'Download Artifact: Databricks-Init-Scripts' 
+      uses: actions/download-artifact@v3
+      with:
+        name: 'init-scripts'
+        path: ${{ github.workspace }}/init-scripts
+    
+    # Download Artifact: jar
+    - name: 'Download Artifact: Databricks-Jar' 
+      uses: actions/download-artifact@v3
+      with:
+        name: 'jars'
+        path: ${{ github.workspace }}/jars   
+            
     # Deploy Databricks Notebooks
     - name: Deploy Databricks Notebooks
       run: |

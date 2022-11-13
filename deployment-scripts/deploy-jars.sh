@@ -6,7 +6,7 @@ workspaceUrl=$2
 jarFilePath="dbfs:/FileStore/jars"
 
 ######################################################################################
-# Create directory for Init Scripts
+# Create directory for Jar Files
 ######################################################################################
 JSON="{ \"path\" : \"$jarFilePath\" }"
 
@@ -30,7 +30,7 @@ curl -X GET https://$workspaceUrl/api/2.0/dbfs/list \
     --data "$JSON"
 
 ######################################################################################
-# Upload Init Scripts
+# Upload Jar Files
 ######################################################################################
 replaceSource="./"
 replaceDest=""
@@ -53,7 +53,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 done
 
 ######################################################################################
-# List Init Scripts 
+# List Jar Files
 ######################################################################################
 JSON="{ \"path\" : \"$jarFilePath\" }"
 

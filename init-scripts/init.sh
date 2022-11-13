@@ -2,8 +2,6 @@
 %sh
 echo "Init-Script Started"
 
-
-#!/bin/bash
 rm -rf /databricks/jars/ordersystem.jar
 rm -rf /databricks/jars/crmsystem.jar
 cp /dbfs/FileStore/jars/*.jar /databricks/jars/
