@@ -64,12 +64,12 @@ jobs:
         name: 'jobs'
         path: '${{ github.workspace }}/jobs'
 
-    # # Publish Artifact: Databricks-Pools
-    # - name: 'Publish Artifact: Databricks-Pools' 
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: 'pools'
-    #     path: '${{ github.workspace }}/pools'   
+    # Publish Artifact: Databricks-Pools
+    - name: 'Publish Artifact: Databricks-Pools' 
+      uses: actions/upload-artifact@v3
+      with:
+        name: 'pools'
+        path: '${{ github.workspace }}/pools'   
 
     # Publish Artifact: Databricks-Jars
     - name: 'Publish Artifact: Databricks-Jars' 
