@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # TO DO
-# You might want to Pin your clusters
-
 # Must be run in the directory with the clusters (spaces in names in Bash can cause issues)
 accessToken=$1
 workspaceUrl=$2
