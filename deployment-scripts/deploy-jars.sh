@@ -42,7 +42,7 @@ find . -type f -name "*" -print0 | while IFS= read -r -d '' file; do
 
     echo "curl -F path=$filename -F content=@$filename $workspaceUrl/api/2.0/dbfs/put"
 
-    curl -n $workspaceUrl/api/2.0/dbfs/put \
+    curl -X $workspaceUrl/api/2.0/dbfs/put \
         -H "Authorization:Bearer $accessToken" \
         -F overwrite=true \
         -F path="$jarFilePath/$filename" \
