@@ -10,7 +10,7 @@ initScriptsPath="dbfs:/FileStore/init-scripts"
 ######################################################################################
 JSON="{ \"path\" : \"$initScriptsPath\" }"
 
-echo "curl $workspaceUrl/api/2.0/dbfs/mkdirs -d $JSON"
+echo "curl -X $workspaceUrl/api/2.0/dbfs/mkdirs -d $JSON"
 
 curl -X POST $workspaceUrl/api/2.0/dbfs/mkdirs \
     -H "Authorization:Bearer $accessToken" \
@@ -24,7 +24,7 @@ JSON="{ \"path\" : \"dbfs:/\" }"
 
 echo "curl $workspaceUrl/api/2.0/dbfs/list -d $JSON"
 
-curl -X GET https://$workspaceUrl/api/2.0/dbfs/list \
+curl -X GET $workspaceUrl/api/2.0/dbfs/list \
     -H "Authorization:Bearer $accessToken" \
     H "Content-Type: application/json" \
     --data "$JSON"
