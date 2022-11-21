@@ -18,7 +18,7 @@ The flow of the deployment in the sample is
 •	If the action tab is not auto populated in your repo, create an emty action and copy the Asset/Workflow/Databricks_CICD.yml content into the workflow names Databricks_CICD
 
 #### Once you create a copy of the repo, the code along with the Environment will be copied to you repo
-• **Set the Secrets for each environment in this case **
+• Set the Secrets for each environment in this case 
 		○ Dev
 		○ QA
 		○ Prod
@@ -71,3 +71,44 @@ Code -> copy the HTTPS link to the repo
 • Once the changes are done in repo, commit the changes to the remote branch and create a PR. 
 
 • Approval of PR initiates the git Action to deploy the code into Dev. For QA and Prod a reviewer can be added.
+
+### Setup the approval gateway for UAT and Prod
+
+#### We need to set the reviewer's before the code is deployed into the environement to have a check on what is deployed.
+
+in the GitHub repo go to
+
+Settings -> Environment -> Select the environment (UAT/PROD)
+
+Check the Required reviewers and add the mail id of the members who can approve the deployment. Then Click :Save protection rules"
+
+![Git_repo_Cloning](Screenshots/Approval_Gateway.png)
+
+### Adding JAR file to be deployed on the cluster
+
+#### For Jar files where size < 25 MB just add the files in the jar folder in the repo and include the jar in the cluster scope init / global init script as per the requirement.
+
+![Git_repo_Cloning](Screenshots/Jar_Less_Than_25MB.png)
+
+#### For Setup of jar files where size > 25 mb, it needs to be added in the Databricks dbfs folder
+For adding the jar in the databricks workspace Goto :
+* Admin Console -> Advanced  -> enable "DBFS File Browser: Enabled"
+* Refresh the browser
+
+![Git_repo_Cloning](Screenshots/Jar_Greater_Than_25MB.png)
+
+* After browser refresh go to the Data tab 
+* Select DBFS
+* Select the jar loaction : FileStore/jars
+* Select Upload tab and browse the jar file and ok
+  Jar file will be uploaded to the location and can be installed on the required cluster like other exisiting jar files.
+
+![Git_repo_Cloning](Screenshots/Databricks_dbfs_jars.png)
+
+### Adding Global init script
+
+#### Global init script installs the dependencies or perform initial script on all the clusters in the databricks work space as against the cluster-scope init script.
+To add Global Init script Go to :
+* Admin Console -> Global init Scripts -> Add -> include the scipt and save -> Enable/Disable the script as required.
+
+![Git_repo_Cloning](Screenshots/Global_init.png)
