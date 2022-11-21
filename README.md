@@ -1,22 +1,3 @@
-# Azure Databricks CICD With GITHub Actions
-
-### Solution presents an end to end sample for code promotion with Azure Databricks using GitHub Action.
-
-#### The code works with Databricks PAT token for Authorization to call the Databricks REST API.
-
-#### This will show you how to deploy your Databricks assests via GitHub Actions so that your artifacts are automatically deployed and configured per environment.The items covered in the code are :
-- 	Notebooks
-- 	Folders
-- 	Clusters
-- 	Jobs
-- 	Pools
-
-The flow of the deployment in the sample is
-
-**developer workspace notebook -> GitHub Repo -> Dev Environment -> QA -> Prod**
-
-But the flow can be adjusted as per Customer requirement or code promotion
-
 # Azure Databricks CICD With GitHub Actions
 ### Solution presents an end to end sample for code promotion with Azure Databricks using GitHub Action.
 #### The code works with Databricks PAT token for Authorization to call the Databricks REST API.
@@ -28,7 +9,7 @@ But the flow can be adjusted as per Customer requirement or code promotion
 -   Pools
 The flow of the deployment in the sample is
 **developer workspace notebook -> GitHub Repo -> Dev Environment -> QA -> Prod**
- The flow can be adjusted as per Customer code promotion policy
+ The flow can be adjusted as per teams code promotion policy
 
 ## Creating and setting up GitHub Repo
 
@@ -37,7 +18,7 @@ The flow of the deployment in the sample is
 •	If the action tab is not auto populated in your repo, create an emty action and copy the Asset/Workflow/Databricks_CICD.yml content into the workflow names Databricks_CICD
 
 #### Once you create a copy of the repo, the code along with the Environment will be copied to you repo
-• Set the Secrets for each environment in this case 
+• **Set the Secrets for each environment in this case **
 		○ Dev
 		○ QA
 		○ Prod
