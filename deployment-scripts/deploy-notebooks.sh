@@ -48,6 +48,7 @@ done
         echo "New filename: $filename"
 
         language="PYTHON"
+        
         # if [[ "$filename" == *sql ]]
         # then
         #     language="SQL"
