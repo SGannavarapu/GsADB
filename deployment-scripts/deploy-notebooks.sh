@@ -68,6 +68,11 @@ done
             language="R"
         fi
 
+        if [[ "$filename" == *ipynb ]]
+        then
+            language="PYTHON"
+        fi
+
         echo "curl -F language=$language -F path=$notebookPathUnderWorkspace/$filename -F content=@$file $workspaceUrl/api/2.0/workspace/import"
 
         curl -n $workspaceUrl/api/2.0/workspace/import \
