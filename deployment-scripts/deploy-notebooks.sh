@@ -47,32 +47,32 @@ done
         filename=${file//$replaceSource/$replaceDest}
         echo "New filename: $filename"
 
-        language="PYTHON"
+        language=""
         
-        # if [[ "$filename" == *sql ]]
-        # then
-        #     language="SQL"
-        # fi
+        if [[ "$filename" == *sql ]]
+        then
+            language="SQL"
+        fi
 
-        # if [[ "$filename" == *scala ]]
-        # then
-        #     language="SCALA"
-        # fi
+        if [[ "$filename" == *scala ]]
+        then
+            language="SCALA"
+        fi
 
-        # if [[ "$filename" == *py ]]
-        # then
-        #     language="PYTHON"
-        # fi
+        if [[ "$filename" == *py ]]
+        then
+            language="PYTHON"
+        fi
 
-        # if [[ "$filename" == *r ]]
-        # then
-        #     language="R"
-        # fi
+        if [[ "$filename" == *r ]]
+        then
+            language="R"
+        fi
 
-        # if [[ "$filename" == *ipynb ]]
-        # then
-        #     language="PYTHON"
-        # fi
+        if [[ "$filename" == *ipynb ]]
+        then
+            language="PYTHON"
+        fi
 
         echo "curl -F language=$language -F path=$notebookPathUnderWorkspace/$filename -F content=@$file $workspaceUrl/api/2.0/workspace/import"
 
